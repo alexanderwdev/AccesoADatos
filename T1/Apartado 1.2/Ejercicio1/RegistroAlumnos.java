@@ -1,14 +1,13 @@
 package Ejercicio1;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Scanner;
+
+// @author: Alexander Wheatley Neagu
 
 public class RegistroAlumnos {
     public static void main(String[] args) {
@@ -59,7 +58,7 @@ public class RegistroAlumnos {
         System.out.print("Nota: ");
         String nota = sc.nextLine();
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fichero, true))){
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fichero, true))) {
             bw.write(nombre + ";" + ciclo + ";" + nota);
             bw.newLine();
 
@@ -80,7 +79,98 @@ public class RegistroAlumnos {
         // Parte B - Lectura
 
         System.out.println("--- Lectura de alumnos ---");
+
+        int contador = 0;
+        int aprobados = 0;
+        double sumaNotas = 0;
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fichero))) {
+            String linea;
+
+            // Lectura secuencial hasta llegar al final del fichero
+            while ((linea = br.readLine()) != null) {
+                // Ignorar las líneas vacías
+                if (linea.trim().isEmpty()) {
+                    continue;
+                }
+
+                // Separar los campos
+                String[] datos = linea.split(";");
+
+                // Comprobar que están los tres campos
+                if (datos.length != 3) {
+                    System.out.println("Registro incorrecto: " + linea);
+                    continue;
+                }
+
+                String nombreAlumno = datos[0];
+                String cicloAlumno = datos[1];
+                double notaAlumno;
+
+                try {
+                    notaAlumno = Double.parseDouble(datos[2]);
+                } catch (NumberFormatException e) {
+                    System.out.println("Nota incorrecta en el registro: " + linea);
+                    continue;
+                }
+
+                contador++;
+                sumaNotas += notaAlumno;
+
+                // Mostrar info alumno
+                System.out.println("Nombre: " + nombreAlumno + " | Ciclo: " + cicloAlumno + " | Nota: " + notaAlumno);
+
+                // Contar alumnos aprobados
+                if (notaAlumno >= 5) {
+                    aprobados++;
+                }
+            }
+
+            // Mostrar número de registros
+            System.out.println("Número de registros: " + contador);
+
+            // Mostrar alumnos aprobados
+            System.out.println("Alumnos con nota igual o superior a 5:");
+
+            // Leer solo los aprobados
+            try (BufferedReader bwAprobados = new BufferedReader(new FileReader(fichero))) {
+                while ((linea = bwAprobados.readLine()) != null) {
+                    if (linea.trim().isEmpty()) {
+                        continue;
+                    }
+
+                    String[] datos = linea.split(";");
+
+                    if (datos.length != 3) {
+                        continue;
+                    }
+
+                    try {
+                        double notaAlumno = Double.parseDouble(datos[2]);
+
+                        if (notaAlumno >= 5) {
+                            System.out.println(datos[0] + " - " + datos[1] + " - " + notaAlumno);
+                        }
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("Registro con nota incorrecta: " + linea);
+                    }
+                }
+            }
+
+            // Calcular la nota media
+            if (contador > 0) {
+                double media = sumaNotas / contador;
+
+                System.out.println("Nota media del grupo: " + media);
+            } else {
+                System.out.println("No hay registros válidos para calcular la media.");
+            }
+        } catch (IOException e) {
+            System.out.println("Error durante la lectura de alumnos.txt: " + e.getMessage());
+        } catch (SecurityException e) {
+            System.out.println("No tienes permisos para acceder al fichero");
+        }
+        sc.close();
     }
-
-
 }
