@@ -5,9 +5,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
+// @author: Alexander Wheatley Neagu
+
 public class CopiaBinaria {
     public static void main(String[] args) {
+        // Carpeta donde se va a crear todo lo demás
         Path carpetaBase = Path.of("T1/CarpetasEjercicios");
+        // Crear las carpetas necesarias
         Path carpetaEntrada = carpetaBase.resolve("carpetaEntrada");
         Path carpetaSalida = carpetaBase.resolve("carpetaSalida");
 
@@ -24,9 +28,11 @@ public class CopiaBinaria {
                 return;
             }
 
+            // Muestra el tamaño original del archivo en bytes y la ruta de origen.pdf
             System.out.println("Archivo origen: " + origen);
             System.out.println("Tamaño original: " + Files.size(origen) + " bytes");
 
+            // Crear el archivo de la copia de stream en carpetaSalida
             Path destino1 = carpetaSalida.resolve("copia_stream.pdf");
 
             // FIS/FOS
