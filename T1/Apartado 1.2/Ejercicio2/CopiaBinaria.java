@@ -7,11 +7,13 @@ import java.nio.file.StandardCopyOption;
 
 public class CopiaBinaria {
     public static void main(String[] args) {
-        Path carpetaBase = Path.of("/home/alewhenea/Baixades/clase/Acceso a datos/T1/CarpetasEjercicios");
+        Path carpetaBase = Path.of("T1/CarpetasEjercicios");
         Path carpetaEntrada = carpetaBase.resolve("carpetaEntrada");
         Path carpetaSalida = carpetaBase.resolve("carpetaSalida");
 
         Path origen = carpetaEntrada.resolve("origen.pdf");
+
+        System.out.println("carpetaBase: " + carpetaBase.toAbsolutePath());
 
         try {
             Files.createDirectories(carpetaEntrada);
