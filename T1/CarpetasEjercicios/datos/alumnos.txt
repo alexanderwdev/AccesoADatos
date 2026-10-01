@@ -1,0 +1,4 @@
+Ana López;DAM;8.5
+Luis Pérez;DAW;6.7
+Marta García;DAM;9.1
+Carlos Ruiz;DAW;4.8

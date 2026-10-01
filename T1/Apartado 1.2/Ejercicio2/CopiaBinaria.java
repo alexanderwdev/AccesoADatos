@@ -7,16 +7,19 @@ import java.nio.file.StandardCopyOption;
 
 public class CopiaBinaria {
     public static void main(String[] args) {
-        Path carpetaEntrada = Path.of("carpetaEntrada");
-        Path carpetaSalida = Path.of("carpetaSalida");
+        Path carpetaBase = Path.of("/home/alewhenea/Baixades/clase/Acceso a datos/T1/CarpetasEjercicios");
+        Path carpetaEntrada = carpetaBase.resolve("carpetaEntrada");
+        Path carpetaSalida = carpetaBase.resolve("carpetaSalida");
 
         Path origen = carpetaEntrada.resolve("origen.pdf");
 
         try {
+            Files.createDirectories(carpetaEntrada);
             Files.createDirectories(carpetaSalida);
 
             if (!Files.exists(origen)) {
                 System.out.println("El archivo origen no existe.");
+                return;
             }
 
             System.out.println("Archivo origen: " + origen);
