@@ -1,13 +1,17 @@
 package Ejercicio3;
 
+// @author: Alexander Wheatley Neagu
+
 public class Producto {
 
+    // Atributos del producto
     private int codigo;
     private String nombre;
     private double precio;
     private int cantidad;
     private boolean activo;
 
+    // Constructor
     public Producto(int codigo, String nombre, double precio, int cantidad, boolean activo) {
         this.codigo = codigo;
         this.nombre = nombre;
@@ -56,6 +60,7 @@ public class Producto {
         this.activo = activo;
     }
 
+    // Mostrar los datos de un producto
     @Override
     public String toString() {
         return "Código: " + codigo +

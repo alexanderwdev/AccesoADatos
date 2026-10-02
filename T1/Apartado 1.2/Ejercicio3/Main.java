@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+// @author: Alexander Wheatley Neagu
+
 public class Main {
     public static void main(String[] args) {
         GestionarFichero gestionar = new GestionarFichero();

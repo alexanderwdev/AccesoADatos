@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
+// @author: Alexander Wheatley Neagu
+
 public class GestionarFichero {
     private static final String fichero = "T1/Apartado 1.2/Ejercicio3/productos.dat";
     private static final int longitud_nombre = 40;
