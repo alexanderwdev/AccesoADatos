@@ -1,0 +1,16 @@
+FICHEROS ENCONTRADOS
+production/Acceso a datos/Ejercicio2/CopiaBinaria.class
+production/Acceso a datos/Ejercicio3/GestionarFichero.class
+production/Acceso a datos/Ejercicio3/Producto.class
+production/Acceso a datos/Ejercicio3/productos.dat
+production/Acceso a datos/Ejercicio3/Main.class
+production/Acceso a datos/Ejercicio1/RegistroAlumnos.class
+production/Acceso a datos/Ejercicio1/Main.class
+
+--- Cálculo de estadísticas ---
+Número de directorios: 6
+Número de archivos: 7
+Número de archivos .java: 0
+Tamaño total ocupado: 68506 bytes
+Fichero de mayor tamaño: production/Acceso a datos/Ejercicio3/GestionarFichero.class
+Tamaño del fichero mayor: 7433 bytes
