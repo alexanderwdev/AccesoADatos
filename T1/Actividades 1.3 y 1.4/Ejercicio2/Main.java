@@ -5,7 +5,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
+/**
+ * Programa para guardar y recuperar equipos informáticos.
+ *
+ * @author Alexander Wheatley
+ */
 public class Main {
+
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         Path carpeta = Path.of("T1", "carpetasEjercicios", "datosEquiposInformaticos");
         Path rutaFichero = carpeta.resolve("equipos.dat");
@@ -51,6 +57,13 @@ public class Main {
         System.out.println("Equipos con al menos 16 GB de RAM: " + con16GB);
     }
 
+    /**
+     * Guarda una lista de equipos en un fichero.
+     *
+     * @param ruta ruta del fichero
+     * @param equipos lista de equipos a guardar
+     * @throws IOException si ocurre un error al guardar
+     */
     public static void guardarEquipos(Path ruta, ArrayList<EquipoInformatico> equipos) throws IOException {
         Files.createDirectories(ruta.getParent());
 
@@ -59,7 +72,17 @@ public class Main {
         }
     }
 
-    public static ArrayList<EquipoInformatico> recuperarEquipos(Path ruta) throws IOException, ClassNotFoundException {
+    /**
+     * Recupera una lista de equipos desde un fichero.
+     *
+     * @param ruta ruta del fichero
+     * @return lista de equipos recuperados
+     * @throws IOException si ocurre un error al leer
+     * @throws ClassNotFoundException si no se encuentra la clase
+     */
+    public static ArrayList<EquipoInformatico> recuperarEquipos(Path ruta)
+            throws IOException, ClassNotFoundException {
+
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ruta.toFile()))) {
             return (ArrayList<EquipoInformatico>) ois.readObject();
         }
