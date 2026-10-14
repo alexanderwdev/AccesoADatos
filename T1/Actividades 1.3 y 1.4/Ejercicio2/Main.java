@@ -34,23 +34,17 @@ public class Main {
         ArrayList<EquipoInformatico> equiposRecuperados = recuperarEquipos(rutaFichero);
 
         System.out.println("Equipos recuperados");
-        for (EquipoInformatico equipo : equiposRecuperados) {
-            System.out.println(equipo);
-        }
+        for (EquipoInformatico equipo : equiposRecuperados) System.out.println(equipo);
 
         int operativos = 0;
 
         for (EquipoInformatico equipo : equiposRecuperados) {
-            if (equipo.getEstadoActual() == EquipoInformatico.Estado.OPERATIVO) {
-                operativos++;
-            }
+            if (equipo.getEstadoActual() == EquipoInformatico.Estado.OPERATIVO) operativos++;
         }
 
         int con16GB = 0;
         for (EquipoInformatico equipo : equipos) {
-            if (equipo.getMemoria() >= 16) {
-                con16GB++;
-            }
+            if (equipo.getMemoria() >= 16) con16GB++;
         }
 
         System.out.println("Equipos operativos: " + operativos);
@@ -80,8 +74,7 @@ public class Main {
      * @throws IOException si ocurre un error al leer
      * @throws ClassNotFoundException si no se encuentra la clase
      */
-    public static ArrayList<EquipoInformatico> recuperarEquipos(Path ruta)
-            throws IOException, ClassNotFoundException {
+    public static ArrayList<EquipoInformatico> recuperarEquipos(Path ruta) throws IOException, ClassNotFoundException {
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(ruta.toFile()))) {
             return (ArrayList<EquipoInformatico>) ois.readObject();

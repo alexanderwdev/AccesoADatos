@@ -185,8 +185,6 @@ public class EquipoInformatico implements Serializable {
      */
     @Override
     public String toString() {
-        return getNumInv() + " - " + getMarca() + " " + getModelo()
-                + " - " + getEmpleado() + " - " + getMemoria()
-                + " - " + getEstadoActual();
+        return getNumInv() + " - " + getMarca() + " " + getModelo() + " - " + getEmpleado() + " - " + getMemoria() + " - " + getEstadoActual();
     }
 }
