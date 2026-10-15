@@ -28,12 +28,15 @@ public class Main {
         ArrayList<Reservation> reservasRecuperadas = recuperarReservas();
 
         reservasRecuperadas.forEach(System.out::println);
+
+        System.out.println("--- Cálculos ---");
+        realizarCalculo(reservasRecuperadas);
     }
 
     public static void guardarReservas(ArrayList<Reservation> reservas) {
         try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream("T1/carpetasEjercicios/reservas/reservas.dat"))) {
             salida.writeObject(reservas);
-            System.out.println("Reservas guardadas.");
+            System.out.println("Reservas guardadas.\n");
         } catch (IOException e) {
             System.out.println("Error al guardar las reservas: " + e.getMessage());
         }
@@ -44,11 +47,18 @@ public class Main {
         try (ObjectInputStream entrada = new ObjectInputStream(new FileInputStream("T1/carpetasEjercicios/reservas/reservas.dat"))) {
             reservasRecuperadas = (ArrayList<Reservation>) entrada.readObject();
             System.out.println("Reservas recuperadas correctamente.");
-
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Error al recuperar las reservas: " + e.getMessage());
         }
 
         return reservasRecuperadas;
+    }
+
+    public static void realizarCalculo(ArrayList<Reservation> reservasRecuperadas) {
+        int numRecuperadas = reservasRecuperadas.size();
+        int duracionTotal = reservasRecuperadas.stream().mapToInt(Reservation::getDuracion).sum();
+
+        System.out.println("Reservas recuperadas: " + numRecuperadas);
+        System.out.println("Duración total: " + duracionTotal);
     }
 }
