@@ -4,7 +4,13 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Programa para guardar, recuperar y analizar reservas mediante serialización.
+ *
+ * @author Alexander Wheatley
+ */
 public class Main {
+
     public static void main(String[] args) {
         Reservation res1 = new Reservation(1, "Carlos Palazón", "Pelota de fútbol", 60, List.of("Lionel Messi", "Cristiano Ronaldo"), "ABC1");
         Reservation res2 = new Reservation(2, "Hector El Baroudi", "Raqueta de tenis", 30, List.of("Rafael Nadal", "Serena Williams"), "ABC2");
@@ -24,6 +30,7 @@ public class Main {
         reservas.add(res4);
 
         guardarReservas(reservas);
+
         System.out.println("\n--- Reservas Post-Serialización ---\n");
         ArrayList<Reservation> reservasRecuperadas = recuperarReservas();
 
@@ -33,6 +40,11 @@ public class Main {
         realizarCalculo(reservasRecuperadas);
     }
 
+    /**
+     * Guarda una lista de reservas en un fichero.
+     *
+     * @param reservas lista de reservas que se guardará
+     */
     public static void guardarReservas(ArrayList<Reservation> reservas) {
         try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream("T1/carpetasEjercicios/reservas/reservas.dat"))) {
             salida.writeObject(reservas);
@@ -42,8 +54,14 @@ public class Main {
         }
     }
 
+    /**
+     * Recupera las reservas almacenadas en un fichero.
+     *
+     * @return lista de reservas recuperadas
+     */
     public static ArrayList<Reservation> recuperarReservas() {
         ArrayList<Reservation> reservasRecuperadas = new ArrayList<>();
+
         try (ObjectInputStream entrada = new ObjectInputStream(new FileInputStream("T1/carpetasEjercicios/reservas/reservas.dat"))) {
             reservasRecuperadas = (ArrayList<Reservation>) entrada.readObject();
             System.out.println("Reservas recuperadas correctamente.");
@@ -54,9 +72,16 @@ public class Main {
         return reservasRecuperadas;
     }
 
+    /**
+     * Calcula el número de reservas y su duración total.
+     *
+     * @param reservasRecuperadas lista de reservas recuperadas
+     */
     public static void realizarCalculo(ArrayList<Reservation> reservasRecuperadas) {
         int numRecuperadas = reservasRecuperadas.size();
-        int duracionTotal = reservasRecuperadas.stream().mapToInt(Reservation::getDuracion).sum();
+        int duracionTotal = reservasRecuperadas.stream()
+                .mapToInt(Reservation::getDuracion)
+                .sum();
 
         System.out.println("Reservas recuperadas: " + numRecuperadas);
         System.out.println("Duración total: " + duracionTotal);
