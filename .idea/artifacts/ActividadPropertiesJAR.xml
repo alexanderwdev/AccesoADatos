@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ActividadPropertiesJAR">
+    <output-path>$PROJECT_DIR$/out/artifacts/ActividadPropertiesJAR</output-path>
+    <root id="archive" name="ActividadPropertiesJAR.jar">
+      <element id="dir-copy" path="$PROJECT_DIR$/out/production/Acceso a datos/ActividadProperties" />
+    </root>
+  </artifact>
+</component>

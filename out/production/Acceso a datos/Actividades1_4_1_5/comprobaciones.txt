@@ -1,4 +1,7 @@
-Nombre: Alexander Wheatley Neagu Curso: 2°K DAM
+Nombre: Alexander Wheatley Neagu
+Curso: 2°K DAM
+
+EJERCICIO 1: GESTOR DE RESERVAS
 
 1. Comportamiento del atributo transient
 
@@ -18,9 +21,36 @@ Esta excepción ocurre porque el serialVersionUID de la clase utilizada para lee
 A continuación, se restauró el valor original de serialVersionUID a 1L y se volvió a ejecutar la lectura del fichero. Las reservas se recuperaron correctamente, ya que el identificador de versión volvió a coincidir con el utilizado al guardar los objetos.
 
 3. Cambio del atributo duracion de int a long
+
 Si se mantuviera serialVersionUID = 1L, pero se cambiara el tipo del atributo duracion de int a long, la lectura del fichero original podría seguir funcionando correctamente.
 Esto se debe a que Java admite la conversión de un campo serializado de tipo int a un campo correspondiente de tipo long durante la deserialización. En este caso, los valores originales de la duración se conservarían correctamente, siempre que se cumplan las condiciones de correspondencia de los campos.
 
 Sin embargo, declarar explícitamente un serialVersionUID no garantiza que cualquier modificación de una clase sea compatible con los objetos serializados anteriormente. Este identificador permite controlar la compatibilidad entre versiones, pero no evita los problemas que pueden surgir al modificar la estructura de la clase de formas incompatibles.
 
 Es importante analizar cada cambio realizado en una clase serializable y comprobar si los objetos guardados con versiones anteriores pueden recuperarse correctamente.
+
+EJERCICIO 2: GESTOR DE PEDIDOS
+
+1. Carga de propiedades
+
+El método load() permite leer las propiedades del archivo app.properties. En este ejercicio se utilizan para obtener el nombre de la aplicación, el archivo de datos, el importe mínimo y el número de pedidos guardados.
+
+2. Uso de getProperty()
+
+El método getProperty() permite consultar el valor de una propiedad. Si se utiliza getProperty("minimum.amount", "0"), devuelve "0" cuando la propiedad no existe. Sin indicar un valor predeterminado, devolvería null.
+
+3. Serialización de pedidos
+
+Los pedidos se guardan en orders.dat mediante ObjectOutputStream y se recuperan mediante ObjectInputStream. Se serializa y recupera la colección completa en una sola operación.
+
+4. Filtrado y cálculo del importe total
+
+El programa muestra únicamente los pedidos cuyo importe es igual o superior al mínimo configurado. Con un mínimo de 50, se muestran los pedidos 1, 3 y 4. El importe total de los cuatro pedidos es 325.
+
+5. Diferencia entre setProperty() y store()
+
+setProperty() modifica o añade una propiedad en memoria. Para guardar el cambio en app.properties se utiliza store(). Después de guardar los pedidos, orders.saved se actualiza a 4.
+
+6. Comprobación de la persistencia
+
+Se vuelve a cargar app.properties mediante load() para comprobar que orders.saved se ha guardado correctamente y conserva el valor 4.
