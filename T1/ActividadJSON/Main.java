@@ -2,13 +2,29 @@ package ActividadJSON;
 
 import java.io.*;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Clase principal que crea un anime, lo guarda en un archivo binario
+ * y después lo recupera para guardarlo en formato JSON.
+ *
+ * @author Alexander Wheatley
+ */
 public class Main {
+
+    /**
+     * Crea los objetos del anime Naruto y sus datos relacionados.
+     * Guarda el anime en un archivo, lo recupera y lo convierte a JSON.
+     *
+     * @param args argumentos recibidos al ejecutar el programa
+     * @throws IOException si ocurre un error de entrada o salida
+     */
     public static void main(String[] args) throws IOException {
         Path path = Path.of("T1/ActividadJSON");
         Path rutaFichero = path.resolve("anime.dat");
@@ -26,6 +42,7 @@ public class Main {
         Villain orochimaru = new Villain("Orochimaru", null);
         Villain itachi = new Villain("Itachi Uchiha", null);
         Villain pain = new Villain("Pain", "Akatsuki");
+
         List<Villain> villanos = new ArrayList<>();
         villanos.add(orochimaru);
         villanos.add(itachi);
@@ -53,6 +70,13 @@ public class Main {
         guardarJson(animeRecuperado);
     }
 
+    /**
+     * Guarda un objeto Anime en un archivo mediante serialización.
+     *
+     * @param ruta ruta del archivo donde se guardará el anime
+     * @param anime objeto Anime que se desea guardar
+     * @throws IOException si ocurre un error al guardar el archivo
+     */
     public static void guardarAnime(Path ruta, Anime anime) throws IOException {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(ruta.toFile()))) {
             oos.writeObject(anime);
@@ -62,6 +86,11 @@ public class Main {
         }
     }
 
+    /**
+     * Recupera un objeto Anime desde un archivo binario.
+     *
+     * @return objeto Anime recuperado o null si ocurre un error
+     */
     public static Anime recuperarAnime() {
         Anime anime = null;
 
@@ -75,9 +104,19 @@ public class Main {
         return anime;
     }
 
+    /**
+     * Guarda un objeto Anime en un archivo JSON con formato legible.
+     *
+     * @param anime objeto Anime que se desea convertir y guardar
+     */
     public static void guardarJson(Anime anime) {
-        Gson gson = new Gson();
-        String json = gson.toJson(anime);
-        System.out.println(json);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+        try (FileWriter writer = new FileWriter("T1/ActividadJSON/anime.json")) {
+            gson.toJson(anime, writer);
+            System.out.println("JSON guardado correctamente.");
+        } catch (IOException e) {
+            System.out.println("Error al guardar JSON: " + e.getMessage());
+        }
     }
 }
