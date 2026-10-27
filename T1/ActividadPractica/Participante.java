@@ -1,60 +1,76 @@
+
 package ActividadPractica;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class Participante implements Serializable {
+
     @Serial
-    private final static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     private int id;
     private String nombre;
     private double kmAcumulados;
     private List<String> rutas;
-
     private transient String observacion;
 
     public Participante(int id, String nombre) {
+        this(id, nombre, 0.0, new ArrayList<>());
+    }
+
+    public Participante(int id, String nombre, double kmAcumulados,
+                        List<String> rutas) {
+
+        if (id < 0) {
+            throw new IllegalArgumentException(
+                    "El ID no puede ser negativo.");
+        }
+
+        if (nombre == null || nombre.isBlank()) {
+            throw new IllegalArgumentException(
+                    "El nombre no puede estar vacío.");
+        }
+
+        if (!Double.isFinite(kmAcumulados) || kmAcumulados < 0) {
+            throw new IllegalArgumentException(
+                    "Los kilómetros deben ser un número válido y no negativo.");
+        }
+
         this.id = id;
-        this.nombre = nombre;
-        this.kmAcumulados = 0;
+        this.nombre = nombre.trim();
+        this.kmAcumulados = kmAcumulados;
         this.rutas = new ArrayList<>();
-        this.observacion = "";
+
+        if (rutas != null) {
+            for (String ruta : rutas) {
+                agregarRuta(ruta);
+            }
+        }
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getNombre() {
         return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public double getKmAcumulados() {
         return kmAcumulados;
     }
 
-    public void setKmAcumulados(double kmAcumulados) {
-        this.kmAcumulados = kmAcumulados;
-    }
-
     public List<String> getRutas() {
-        return rutas;
-    }
+        if (rutas == null) {
+            rutas = new ArrayList<>();
+        }
 
-    public void setRutas(List<String> rutas) {
-        this.rutas = rutas;
+        return Collections.unmodifiableList(rutas);
     }
 
     public String getObservacion() {
@@ -65,45 +81,54 @@ public class Participante implements Serializable {
         this.observacion = observacion;
     }
 
-    public boolean agregarRutas(String ruta) {
+    public void sumarKm(double km) {
+        if (!Double.isFinite(km) || km < 0) {
+            throw new IllegalArgumentException(
+                    "Los kilómetros deben ser un número válido y no negativo.");
+        }
+
+        double total = kmAcumulados + km;
+
+        if (!Double.isFinite(total)) {
+            throw new IllegalArgumentException(
+                    "La suma de kilómetros es demasiado grande.");
+        }
+
+        kmAcumulados = total;
+    }
+
+    public boolean agregarRuta(String ruta) {
         if (ruta == null || ruta.isBlank()) {
-            System.out.println("Ruta inválida");
             return false;
         }
 
-        ruta = ruta.trim();
-
-        for (String r : rutas) {
-            if (r.equalsIgnoreCase(ruta)) {
-                System.out.println("Esta ruta ya existe.");
-                return false;
-            }
+        if (rutas == null) {
+            rutas = new ArrayList<>();
         }
 
-        rutas.add(ruta);
-        System.out.println("Ruta añadida correctamente");
+        String rutaLimpia = ruta.trim();
+
+        boolean existe = rutas.stream()
+                .anyMatch(r -> r.equalsIgnoreCase(rutaLimpia));
+
+        if (existe) {
+            return false;
+        }
+
+        rutas.add(rutaLimpia);
         return true;
-    }
-
-    public void sumarKm(double km) {
-        if (Double.isNaN(km) || km < 0) throw new InputMismatchException("Número de kilómetros inválido.");
-
-        kmAcumulados+=km;
-        System.out.println("Kilómetros sumados correctamente");
     }
 
     @Override
     public String toString() {
-        return """
-                ID: %d
-                Nombre: %s
-                Kilómetros acumulados: %.2f
-                Rutas: %s"""
-                .formatted(
-                        id,
-                        nombre,
-                        kmAcumulados,
-                        rutas
-                );
+        return "Participante{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", kmAcumulados=" +
+                String.format(Locale.ROOT, "%.2f", kmAcumulados) +
+                ", rutas=" + getRutas() +
+                ", observacion='" +
+                (observacion == null ? "" : observacion) + '\'' +
+                '}';
     }
 }
