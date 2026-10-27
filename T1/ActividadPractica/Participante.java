@@ -2,6 +2,7 @@ package ActividadPractica;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 
@@ -16,11 +17,12 @@ public class Participante implements Serializable {
 
     private transient String observacion;
 
-    public Participante(int id, String nombre, double kmAcumulados, List<String> rutas) {
+    public Participante(int id, String nombre) {
         this.id = id;
         this.nombre = nombre;
-        this.kmAcumulados = kmAcumulados;
-        this.rutas = rutas;
+        this.kmAcumulados = 0;
+        this.rutas = new ArrayList<>();
+        this.observacion = "";
     }
 
     public int getId() {
@@ -64,10 +66,12 @@ public class Participante implements Serializable {
     }
 
     public boolean agregarRutas(String ruta) {
-        if (ruta.isBlank()) {
+        if (ruta == null || ruta.isBlank()) {
             System.out.println("Ruta inválida");
             return false;
-        };
+        }
+
+        ruta = ruta.trim();
 
         for (String r : rutas) {
             if (r.equalsIgnoreCase(ruta)) {
@@ -82,7 +86,7 @@ public class Participante implements Serializable {
     }
 
     public void sumarKm(double km) {
-        if (km < 0) throw new InputMismatchException("Número de kilómetros inválido.");
+        if (Double.isNaN(km) || km < 0) throw new InputMismatchException("Número de kilómetros inválido.");
 
         kmAcumulados+=km;
         System.out.println("Kilómetros sumados correctamente");
@@ -93,7 +97,7 @@ public class Participante implements Serializable {
         return """
                 ID: %d
                 Nombre: %s
-                Kilómetros acumulados: %f.2
+                Kilómetros acumulados: %.2f
                 Rutas: %s"""
                 .formatted(
                         id,
