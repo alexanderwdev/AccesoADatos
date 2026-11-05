@@ -6,9 +6,19 @@
       <sourceFolder url="file://$MODULE_DIR$/T1" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/T1/aaa" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/T1/adad" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/T2" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/T1/carpetasEjercicios" />
     </content>
     <orderEntry type="inheritedJdk" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/lib/mysql-connector-j-26.10.0.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="google.code.gson" level="project" />
   </component>
