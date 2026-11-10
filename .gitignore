@@ -1,0 +1,9 @@
+# Archivos compilados de IntelliJ
+out/
+*.class
+
+# Archivos de configuración del IDE
+.idea/
+
+# Archivos temporales
+*.log
