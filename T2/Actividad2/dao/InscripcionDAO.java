@@ -9,7 +9,19 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Gestiona las operaciones de acceso a la base de datos relacionadas con las inscripciones.
+ *
+ * @author Alexander Wheatley
+ */
 public class InscripcionDAO {
+
+    /**
+     * Registra una nueva inscripción en la base de datos.
+     *
+     * @param i inscripción que se desea registrar
+     * @return true si se ha registrado correctamente, false en caso contrario
+     */
     public boolean insertarInscripcion(Inscripcion i) {
 
         String sql = "INSERT INTO inscripciones "
@@ -31,6 +43,12 @@ public class InscripcionDAO {
         }
     }
 
+    /**
+     * Elimina una inscripción de la base de datos mediante su identificador.
+     *
+     * @param id identificador de la inscripción que se desea eliminar
+     * @return true si se ha eliminado correctamente, false en caso contrario
+     */
     public boolean eliminarInscripcion(int id) {
 
         String sql = "DELETE FROM inscripciones WHERE id = ?";
@@ -48,6 +66,11 @@ public class InscripcionDAO {
         }
     }
 
+    /**
+     * Obtiene todas las inscripciones almacenadas en la base de datos.
+     *
+     * @return lista con todas las inscripciones
+     */
     public List<Inscripcion> obtenerTodas() {
 
         List<Inscripcion> inscripciones = new ArrayList<>();
@@ -77,6 +100,12 @@ public class InscripcionDAO {
         return inscripciones;
     }
 
+    /**
+     * Busca las inscripciones realizadas por un participante.
+     *
+     * @param idParticipante identificador del participante
+     * @return lista de inscripciones del participante
+     */
     public List<Inscripcion> buscarPorParticipante(int idParticipante) {
 
         List<Inscripcion> inscripciones = new ArrayList<>();
@@ -110,6 +139,12 @@ public class InscripcionDAO {
         return inscripciones;
     }
 
+    /**
+     * Obtiene los participantes inscritos en una expedición concreta.
+     *
+     * @param idExpedicion identificador de la expedición
+     * @return lista de participantes inscritos en la expedición
+     */
     public List<Participante> buscarPorExpedicion(int idExpedicion) {
 
         List<Participante> participantes = new ArrayList<>();
@@ -147,6 +182,13 @@ public class InscripcionDAO {
         return participantes;
     }
 
+    /**
+     * Comprueba si un participante ya está inscrito en una expedición.
+     *
+     * @param idParticipante identificador del participante
+     * @param idExpedicion identificador de la expedición
+     * @return true si existe la inscripción, false en caso contrario
+     */
     public boolean existeInscripcion(int idParticipante, int idExpedicion) {
 
         String sql = "SELECT 1 FROM inscripciones "

@@ -8,7 +8,19 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Gestiona las operaciones de acceso a la base de datos relacionadas con los participantes.
+ *
+ * @author Alexander Wheatley
+ */
 public class ParticipanteDAO {
+
+    /**
+     * Inserta un nuevo participante en la base de datos.
+     *
+     * @param p participante que se desea insertar
+     * @return true si se ha insertado correctamente, false en caso contrario
+     */
     public boolean insertarParticipante(Participante p) {
 
         String sql = "INSERT INTO participantes (nombre, edad, km_acumulados) VALUES (?, ?, ?)";
@@ -28,6 +40,12 @@ public class ParticipanteDAO {
         }
     }
 
+    /**
+     * Modifica los datos de un participante existente.
+     *
+     * @param p participante con los nuevos datos
+     * @return true si se ha modificado correctamente, false en caso contrario
+     */
     public boolean modificarParticipante(Participante p) {
 
         String sql = "UPDATE participantes SET nombre = ?, edad = ?, km_acumulados = ? WHERE id = ?";
@@ -48,6 +66,12 @@ public class ParticipanteDAO {
         }
     }
 
+    /**
+     * Elimina un participante de la base de datos mediante su identificador.
+     *
+     * @param id identificador del participante que se desea eliminar
+     * @return true si se ha eliminado correctamente, false en caso contrario
+     */
     public boolean eliminarParticipante(int id) {
 
         String sql = "DELETE FROM participantes WHERE id = ?";
@@ -65,6 +89,11 @@ public class ParticipanteDAO {
         }
     }
 
+    /**
+     * Obtiene todos los participantes almacenados en la base de datos.
+     *
+     * @return lista con todos los participantes
+     */
     public List<Participante> obtenerTodos() {
 
         List<Participante> participantes = new ArrayList<>();
@@ -94,6 +123,12 @@ public class ParticipanteDAO {
         return participantes;
     }
 
+    /**
+     * Busca un participante mediante su identificador.
+     *
+     * @param id identificador del participante
+     * @return participante encontrado o null si no existe
+     */
     public Participante buscarPorId(int id) {
 
         String sql = "SELECT * FROM participantes WHERE id = ?";
@@ -123,6 +158,12 @@ public class ParticipanteDAO {
         return null;
     }
 
+    /**
+     * Busca participantes cuyo nombre coincida total o parcialmente con el texto indicado.
+     *
+     * @param nombre nombre o parte del nombre que se desea buscar
+     * @return lista de participantes que coinciden con la búsqueda
+     */
     public List<Participante> buscarPorNombre(String nombre) {
 
         List<Participante> participantes = new ArrayList<>();

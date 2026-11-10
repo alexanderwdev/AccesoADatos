@@ -8,9 +8,19 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Gestiona las operaciones de acceso a la base de datos relacionadas con las expediciones.
+ *
+ * @author Alexander Wheatley
+ */
 public class ExpedicionDAO {
 
-    // 1. Insertar expedición
+    /**
+     * Inserta una nueva expedición en la base de datos con estado ACTIVA.
+     *
+     * @param e expedición que se desea insertar
+     * @return true si se ha insertado correctamente, false en caso contrario
+     */
     public boolean insertarExpedicion(Expedicion e) {
 
         String sql = "INSERT INTO expediciones "
@@ -35,7 +45,12 @@ public class ExpedicionDAO {
         }
     }
 
-    // 2. Modificar expedición
+    /**
+     * Modifica los datos de una expedición existente.
+     *
+     * @param e expedición con los nuevos datos
+     * @return true si se ha modificado correctamente, false en caso contrario
+     */
     public boolean modificarExpedicion(Expedicion e) {
 
         String sql = "UPDATE expediciones SET nombre = ?, destino = ?, "
@@ -60,7 +75,12 @@ public class ExpedicionDAO {
         }
     }
 
-    // 3. Eliminar expedición
+    /**
+     * Elimina una expedición de la base de datos.
+     *
+     * @param id identificador de la expedición que se desea eliminar
+     * @return true si se ha eliminado correctamente, false en caso contrario
+     */
     public boolean eliminarExpedicion(int id) {
 
         String sql = "DELETE FROM expediciones WHERE id = ?";
@@ -78,7 +98,11 @@ public class ExpedicionDAO {
         }
     }
 
-    // 4. Obtener todas las expediciones
+    /**
+     * Obtiene todas las expediciones almacenadas en la base de datos.
+     *
+     * @return lista con todas las expediciones
+     */
     public List<Expedicion> obtenerTodas() {
 
         List<Expedicion> expediciones = new ArrayList<>();
@@ -110,7 +134,12 @@ public class ExpedicionDAO {
         return expediciones;
     }
 
-    // 5. Buscar expedición por ID
+    /**
+     * Busca una expedición mediante su identificador.
+     *
+     * @param id identificador de la expedición
+     * @return expedición encontrada o null si no existe
+     */
     public Expedicion buscarPorId(int id) {
 
         String sql = "SELECT * FROM expediciones WHERE id = ?";
@@ -142,7 +171,12 @@ public class ExpedicionDAO {
         return null;
     }
 
-    // 6. Buscar expediciones por destino
+    /**
+     * Busca expediciones cuyo destino coincida total o parcialmente con el texto indicado.
+     *
+     * @param destino destino que se desea buscar
+     * @return lista de expediciones que coinciden con la búsqueda
+     */
     public List<Expedicion> buscarPorDestino(String destino) {
 
         List<Expedicion> expediciones = new ArrayList<>();
@@ -178,7 +212,12 @@ public class ExpedicionDAO {
         return expediciones;
     }
 
-    // 7. Finalizar expedición
+    /**
+     * Cambia el estado de una expedición activa a FINALIZADA.
+     *
+     * @param id identificador de la expedición que se desea finalizar
+     * @return true si se ha finalizado correctamente, false en caso contrario
+     */
     public boolean finalizarExpedicion(int id) {
 
         String sql = "UPDATE expediciones SET estado = 'FINALIZADA' "

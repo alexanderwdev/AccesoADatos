@@ -71,6 +71,10 @@ CREATE INDEX idx_expedicion_estado
 CREATE INDEX idx_inscripcion_expedicion
     ON inscripciones(id_expedicion);
 
+INSERT INTO usuarios (nombre_usuario, password_hash, rol)
+VALUES ('admin', '1234', 'ADMIN')
+    ON DUPLICATE KEY UPDATE nombre_usuario = nombre_usuario;
+
 DELIMITER //
 
 CREATE PROCEDURE sp_finalizar_expedicion(

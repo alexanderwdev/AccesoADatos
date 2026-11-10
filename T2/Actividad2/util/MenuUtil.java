@@ -2,9 +2,17 @@ package Actividad2.util;
 
 import java.util.Scanner;
 
+/**
+ * Proporciona métodos para mostrar menús y solicitar datos al usuario.
+ *
+ * @author Alexander Wheatley
+ */
 public class MenuUtil {
     private static final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Muestra el menú principal de la aplicación.
+     */
     public static void mostrarMenuPrincipal() {
         System.out.println("\n================================");
         System.out.println("     EXPEDICIONES");
@@ -19,6 +27,9 @@ public class MenuUtil {
         System.out.println("================================");
     }
 
+    /**
+     * Muestra el menú de gestión de participantes.
+     */
     public static void mostrarMenuParticipantes() {
         System.out.println("\n--- GESTIÓN DE PARTICIPANTES ---");
         System.out.println("1. Añadir participante");
@@ -29,6 +40,9 @@ public class MenuUtil {
         System.out.println("0. Volver");
     }
 
+    /**
+     * Muestra el menú de gestión de expediciones.
+     */
     public static void mostrarMenuExpediciones() {
         System.out.println("\n--- GESTIÓN DE EXPEDICIONES ---");
         System.out.println("1. Añadir expedición");
@@ -40,6 +54,9 @@ public class MenuUtil {
         System.out.println("0. Volver");
     }
 
+    /**
+     * Muestra el menú de gestión de inscripciones.
+     */
     public static void mostrarMenuInscripciones() {
         System.out.println("\n--- GESTIÓN DE INSCRIPCIONES ---");
         System.out.println("1. Inscribir participante");
@@ -49,6 +66,11 @@ public class MenuUtil {
         System.out.println("0. Volver");
     }
 
+    /**
+     * Solicita una opción al usuario y comprueba que sea un número entero.
+     *
+     * @return opción introducida o -1 si no es válida
+     */
     public static int pedirOpcion() {
         System.out.print("Selecciona una opción: ");
 
@@ -60,11 +82,23 @@ public class MenuUtil {
         }
     }
 
+    /**
+     * Solicita un texto al usuario.
+     *
+     * @param mensaje mensaje que se muestra antes de solicitar el texto
+     * @return texto introducido
+     */
     public static String pedirTexto(String mensaje) {
         System.out.print(mensaje);
         return scanner.nextLine();
     }
 
+    /**
+     * Solicita un número entero hasta que se introduzca uno válido.
+     *
+     * @param mensaje mensaje que se muestra antes de solicitar el número
+     * @return número entero introducido
+     */
     public static int pedirEntero(String mensaje) {
         while (true) {
             System.out.print(mensaje);
@@ -77,6 +111,12 @@ public class MenuUtil {
         }
     }
 
+    /**
+     * Solicita un número decimal hasta que se introduzca uno válido.
+     *
+     * @param mensaje mensaje que se muestra antes de solicitar el número
+     * @return número decimal introducido
+     */
     public static double pedirDecimal(String mensaje) {
         while (true) {
             System.out.print(mensaje);
@@ -89,6 +129,11 @@ public class MenuUtil {
         }
     }
 
+    /**
+     * Muestra un mensaje por pantalla.
+     *
+     * @param mensaje texto que se quiere mostrar
+     */
     public static void mostrarMensaje(String mensaje) {
         System.out.println(mensaje);
     }

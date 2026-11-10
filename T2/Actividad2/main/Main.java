@@ -20,12 +20,25 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Clase principal que gestiona la aplicación de expediciones.
+ * Permite iniciar sesión y administrar participantes, expediciones e inscripciones.
+ *
+ * @author Alexander Wheatley
+ */
 public class Main {
+
     private static final AutenticacionServicio autenticacion = new AutenticacionServicio();
     private static final ExpedicionServicio expedicionServicio = new ExpedicionServicio();
     private static final ParticipanteDAO participanteDAO = new ParticipanteDAO();
     private static final InscripcionDAO inscripcionDAO = new InscripcionDAO();
 
+    /**
+     * Inicia la aplicación, comprueba la conexión con la base de datos
+     * y muestra el menú principal.
+     *
+     * @param args argumentos recibidos al ejecutar el programa
+     */
     public static void main(String[] args) {
         System.out.println("EXPEDICIONES");
 
@@ -93,6 +106,11 @@ public class Main {
         }
     }
 
+    /**
+     * Solicita las credenciales al usuario e inicia sesión.
+     *
+     * @return usuario autenticado
+     */
     private static Usuario iniciarSesion() {
 
         Usuario usuario = null;
@@ -112,6 +130,9 @@ public class Main {
         return usuario;
     }
 
+    /**
+     * Muestra el menú de gestión de participantes y ejecuta la opción seleccionada.
+     */
     private static void menuParticipantes() {
 
         int opcion;
@@ -154,6 +175,9 @@ public class Main {
         } while (opcion != 0);
     }
 
+    /**
+     * Solicita los datos necesarios y registra un nuevo participante.
+     */
     private static void anadirParticipante() {
         System.out.println("\n--- AÑADIR PARTICIPANTE ---");
 
@@ -175,6 +199,9 @@ public class Main {
         }
     }
 
+    /**
+     * Busca un participante y modifica sus datos.
+     */
     private static void modificarParticipante() {
         System.out.println("\n--- MODIFICAR PARTICIPANTE ---");
 
@@ -207,6 +234,9 @@ public class Main {
         }
     }
 
+    /**
+     * Elimina un participante mediante su identificador.
+     */
     private static void eliminarParticipante() {
 
         System.out.println("\n--- ELIMINAR PARTICIPANTE ---");
@@ -220,6 +250,9 @@ public class Main {
         }
     }
 
+    /**
+     * Busca participantes por su nombre y muestra los resultados.
+     */
     private static void buscarParticipante() {
 
         System.out.println("\n--- BUSCAR PARTICIPANTE ---");
@@ -238,6 +271,9 @@ public class Main {
         }
     }
 
+    /**
+     * Obtiene y muestra todos los participantes registrados.
+     */
     private static void listarParticipantes() {
 
         System.out.println("\n--- LISTADO DE PARTICIPANTES ---");
@@ -254,6 +290,9 @@ public class Main {
         }
     }
 
+    /**
+     * Muestra el menú de gestión de expediciones y ejecuta la opción seleccionada.
+     */
     private static void menuExpediciones() {
         int opcion;
 
@@ -298,6 +337,9 @@ public class Main {
         } while (opcion != 0);
     }
 
+    /**
+     * Solicita los datos y registra una nueva expedición.
+     */
     private static void anadirExpedicion() {
         System.out.println("\n--- AÑADIR EXPEDICIÓN ---");
 
@@ -321,6 +363,9 @@ public class Main {
         }
     }
 
+    /**
+     * Busca una expedición y modifica sus datos.
+     */
     private static void modificarExpedicion() {
         System.out.println("\n--- MODIFICAR EXPEDICIÓN ---");
 
@@ -357,6 +402,9 @@ public class Main {
         }
     }
 
+    /**
+     * Elimina una expedición mediante su identificador.
+     */
     private static void eliminarExpedicion() {
         System.out.println("\n--- ELIMINAR EXPEDICIÓN ---");
 
@@ -369,6 +417,9 @@ public class Main {
         }
     }
 
+    /**
+     * Busca expediciones por destino y muestra los resultados.
+     */
     private static void buscarExpedicion() {
         System.out.println("\n--- BUSCAR EXPEDICIÓN ---");
 
@@ -386,6 +437,9 @@ public class Main {
         }
     }
 
+    /**
+     * Obtiene y muestra todas las expediciones registradas.
+     */
     private static void listarExpediciones() {
         System.out.println("\n--- LISTADO DE EXPEDICIONES ---");
 
@@ -400,6 +454,9 @@ public class Main {
         }
     }
 
+    /**
+     * Finaliza una expedición activa mediante su identificador.
+     */
     private static void finalizarExpedicion() {
         System.out.println("\n--- FINALIZAR EXPEDICIÓN ---");
 
@@ -412,6 +469,9 @@ public class Main {
         }
     }
 
+    /**
+     * Muestra el menú de gestión de inscripciones y ejecuta la opción seleccionada.
+     */
     private static void menuInscripciones() {
         int opcion;
 
@@ -448,6 +508,9 @@ public class Main {
         } while (opcion != 0);
     }
 
+    /**
+     * Registra una nueva inscripción de un participante en una expedición.
+     */
     private static void anadirInscripcion() {
         System.out.println("\n--- NUEVA INSCRIPCIÓN ---");
 
@@ -474,6 +537,9 @@ public class Main {
         }
     }
 
+    /**
+     * Cancela una inscripción mediante su identificador.
+     */
     private static void cancelarInscripcion() {
         System.out.println("\n--- CANCELAR INSCRIPCIÓN ---");
 
@@ -486,6 +552,9 @@ public class Main {
         }
     }
 
+    /**
+     * Busca y muestra las inscripciones de un participante.
+     */
     private static void verInscripcionesParticipante() {
         System.out.println("\n--- INSCRIPCIONES DE UN PARTICIPANTE ---");
 
@@ -503,6 +572,9 @@ public class Main {
         }
     }
 
+    /**
+     * Busca y muestra los participantes inscritos en una expedición.
+     */
     private static void verParticipantesExpedicion() {
         System.out.println("\n--- PARTICIPANTES DE UNA EXPEDICIÓN ---");
 
@@ -520,6 +592,11 @@ public class Main {
         }
     }
 
+    /**
+     * Solicita una fecha al usuario y comprueba que tenga el formato correcto.
+     *
+     * @return fecha introducida por el usuario
+     */
     private static LocalDate pedirFecha() {
 
         while (true) {
