@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: Actividad2.main.Main
+Class-Path: lib/mysql-connector-j-26.10.0.jar
+

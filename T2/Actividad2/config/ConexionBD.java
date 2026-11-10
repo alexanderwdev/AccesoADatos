@@ -28,12 +28,16 @@ public class ConexionBD {
     public static Properties cargarPropiedades() throws IOException {
         Properties p = new Properties();
 
-        if (Files.exists(propiedadesFichero)) {
-            try (InputStream is = Files.newInputStream(propiedadesFichero)) {
-                p.load(is);
-            }
-        } else {
-            System.out.println("No existe el archivo");
+        Path fichero = Path.of("datasource.properties");
+
+        if (!Files.exists(fichero)) fichero = Path.of("T2", "Actividad2", "datasource.properties");
+
+        if (!Files.exists(fichero)) {
+            throw new IOException("No se encuentra datasource.properties en: " + fichero.toAbsolutePath());
+        }
+
+        try (InputStream is = Files.newInputStream(fichero)) {
+            p.load(is);
         }
 
         return p;
@@ -47,12 +51,17 @@ public class ConexionBD {
      * @throws IOException si ocurre un error al cargar el archivo de configuración
      */
     public static Connection getConexion() throws SQLException, IOException {
+
         Properties p = cargarPropiedades();
 
-        return DriverManager.getConnection(
-                p.getProperty("db.url"),
-                p.getProperty("db.user"),
-                p.getProperty("db.password")
-        );
+        String url = p.getProperty("db.url");
+        String usuario = p.getProperty("db.user");
+        String password = p.getProperty("db.password");
+
+        if (url == null || usuario == null || password == null) {
+            throw new IOException("Faltan propiedades en datasource.properties");
+        }
+
+        return DriverManager.getConnection(url, usuario, password);
     }
 }
