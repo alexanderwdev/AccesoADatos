@@ -15,10 +15,6 @@ import java.util.Properties;
  * @author Alexander Wheatley
  */
 public class ConexionBD {
-
-    private static final Path propiedades = Path.of("T2/Actividad2");
-    private static final Path propiedadesFichero = propiedades.resolve("datasource.properties");
-
     /**
      * Carga las propiedades desde el archivo de configuración.
      *
